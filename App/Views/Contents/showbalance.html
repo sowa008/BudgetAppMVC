@@ -87,7 +87,11 @@
 						
 									  <div class="col-12 col-lg-6 p-2">
 									  
+									  Your incomes:
+									  
+									  <div id="piechart">
 									  <div id="piechart_incomes" style="width: 100%; height: 350px; margin-bottom: 10px;"></div>
+									  </div>
 										
 											<div class="table">							
 													<table style="margin-left:auto; margin-right:auto;">
@@ -120,8 +124,12 @@
 										</div>
 							
 									<div class="col-12 col-lg-6 p-2">
+									
+									Your expenses:
 									  
+									  <div id="piechart">
 									  <div id="piechart_expenses" style="width: 100%; height: 350px; margin-bottom: 10px;"></div>
+									  </div>
 											
 										<div class="table">							
 												<table style="margin-left:auto; margin-right:auto;">
@@ -174,40 +182,22 @@
 {% block javascripts %}
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawExpensesChart);
-      google.charts.setOnLoadCallback(drawIncomesChart);
-
-      function drawExpensesChart() {
-
-        var data = google.visualization.arrayToDataTable([
-        	['Category', 'Amount'],
-          {% for pieCh in pieExpenseChart %}
-          		['{{ pieChartExpenseData.name }}', {{ pieChartExpenseData['sum'] }}],
-          	{% endfor %}
-        ]);
-
-        var options = {
-          title: 'Your expenses:'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_expenses'));
-
-        chart.draw(data, options);
-      }
+	  google.charts.setOnLoadCallback(drawIncomesChart);
 	  
 	  function drawIncomesChart() {
 
         var data = google.visualization.arrayToDataTable([
         	['Category', 'Amount'],
-          {% for pieCh in pieIncomeChart %}
-          		['{{ pieChartIncomeData.name }}', {{ pieChartIncomeData['sum'] }}],
+          {% for pieCh in pieIn %}
+          		['{{ pieCh.name }}', {{ pieCh['SUM(i.amount)'] }}],
           	{% endfor %}
         ]);
 
         var options = {
-          title: 'Your incomes:'
+          //title: 'Your incomes:'
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart_incomes'));
@@ -215,4 +205,37 @@
         chart.draw(data, options);
       }
     </script>
+	
+	<script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+	  google.charts.setOnLoadCallback(drawExpensesChart);
+      
+	  function drawExpensesChart() {
+
+        var data = google.visualization.arrayToDataTable([
+        	['Category', 'Amount'],
+          {% for pieCh in pieEx %}
+          		['{{ pieCh.name }}', {{ pieCh['SUM(e.amount)'] }}],
+          	{% endfor %}
+        ]);
+
+		var options = {
+		  legend: { position: 'none' },
+		  title: {hAxis: {
+			direction:-1,
+			slantedText:true,
+			slantedTextAngle:110 
+			}}
+
+};
+				
+		var chart = new google.charts.Bar(document.getElementById('piechart_expenses'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+
+      }
+	 
+    </script>
+	
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 {% endblock %}

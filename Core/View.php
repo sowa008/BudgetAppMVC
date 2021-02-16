@@ -72,9 +72,9 @@ class View
 			
 			$twig->addGlobal('sumOfExpensesCustomPeriod', \App\Auth::getSumOfExpensesCustomPeriod());
 			
-			$twig->addGlobal('pieChartIncomeData', \App\Auth::getIncomePieChart());
+			//$twig->addGlobal('pieChartIncomeData', \App\Auth::getIncomePieChart());
 			
-			$twig->addGlobal('pieChartExpenseData', \App\Auth::getExpensePieChart());
+			//$twig->addGlobal('pieChartExpenseData', \App\Auth::getExpensePieChart());
 			
 			$twig = new \Twig_Environment($loader, [
 				'debug' => true
@@ -117,8 +117,8 @@ class View
 			$twig->addGlobal('sumOfExpensesLastMonth', \App\Auth::getSumOfExpensesLastMonth());
 			$twig->addGlobal('sumOfExpensesCurrentYear', \App\Auth::getSumOfExpensesCurrentYear());
 			$twig->addGlobal('sumOfExpensesCustomPeriod', \App\Auth::getSumOfExpensesCustomPeriod());
-			$twig->addGlobal('pieChartIncomeData', \App\Auth::getIncomePieChart());
-			$twig->addGlobal('pieChartExpenseData', \App\Auth::getExpensePieChart());
+			//$twig->addGlobal('pieChartIncomeData', \App\Auth::getIncomePieChart());
+			//$twig->addGlobal('pieChartExpenseData', \App\Auth::getExpensePieChart());
 
         }
 

@@ -268,21 +268,5 @@ class Auth
 		return $showbalance->getSumOfExpensesCustomPeriod();
 		
 	}
-	
-	public static function getIncomePieChart()
-	{
-		$userID=1;
-		$begin = '2021-02-01';
-		$end = '2021-02-28';
-		return PieChartModel::takeIncomePieChart($userID, $begin, $end);
-	}
-	
-	public static function getExpensePieChart()
-	{
-		$userID=1;
-		$begin = '2021-02-01';
-		$end = '2021-02-28';
-		return PieChartModel::takeExpensePieChart($userID, $begin, $end);
-	}
-	
+		
 }

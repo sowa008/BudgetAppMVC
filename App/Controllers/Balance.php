@@ -15,14 +15,14 @@ class Balance extends Authenticated
 		
 		$beginOfPeriod = DateModel::getFirstDayOfThisMonth();
 		$endOfPeriod = DateModel::getLastDayOfThisMonth();
-		
+				
 		$balance = new ShowBalance();
 		
 		$arg['incomesGenerally'] = $balance->getIncomesGenerally($beginOfPeriod, $endOfPeriod);
-		$arg['pieChartIncomeData'] = $balance->getIncomesGenerally($beginOfPeriod, $endOfPeriod);
+		$arg['pieIn'] = $balance->getIncomePie($beginOfPeriod, $endOfPeriod);
 		
 		$arg['expensesGenerally'] = $balance->getExpensesGenerally($beginOfPeriod, $endOfPeriod);
-		$arg['pieChartExpenseData'] = $balance->getExpensesGenerally($beginOfPeriod, $endOfPeriod);
+		$arg['pieEx'] = $balance->getExpensePie($beginOfPeriod, $endOfPeriod);
 		
 		View::renderTemplate('Contents/showbalance.html', $arg);
 	}
@@ -35,10 +35,10 @@ class Balance extends Authenticated
 		$balance = new ShowBalance();
 		
 		$arg['incomesGenerally'] = $balance->getIncomesGenerally($beginOfPeriod, $endOfPeriod);
-		$arg['pieChartData'] = $balance->getIncomesGenerally($beginOfPeriod, $endOfPeriod);
+		$arg['pieIn'] = $balance->getIncomePie($beginOfPeriod, $endOfPeriod);
 		
 		$arg['expensesGenerally'] = $balance->getExpensesGenerally($beginOfPeriod, $endOfPeriod);
-		$arg['pieChartData'] = $balance->getExpensesGenerally($beginOfPeriod, $endOfPeriod);
+		$arg['pieEx'] = $balance->getExpensePie($beginOfPeriod, $endOfPeriod);
 		
 		View::renderTemplate('Contents/lastmonth.html', $arg);
 		
@@ -52,10 +52,10 @@ class Balance extends Authenticated
 		$balance = new ShowBalance();
 		
 		$arg['incomesGenerally'] = $balance->getIncomesGenerally($beginOfPeriod, $endOfPeriod);
-		$arg['pieChartData'] = $balance->getIncomesGenerally($beginOfPeriod, $endOfPeriod);
+		$arg['pieIn'] = $balance->getIncomePie($beginOfPeriod, $endOfPeriod);
 		
 		$arg['expensesGenerally'] = $balance->getExpensesGenerally($beginOfPeriod, $endOfPeriod);
-		$arg['pieChartData'] = $balance->getExpensesGenerally($beginOfPeriod, $endOfPeriod);
+		$arg['pieEx'] = $balance->getExpensePie($beginOfPeriod, $endOfPeriod);
 		
 		View::renderTemplate('Contents/currentyear.html', $arg);
 		
@@ -80,10 +80,10 @@ class Balance extends Authenticated
 		$balance = new ShowBalance();
 		
 		$arg['incomesGenerally'] = $balance->getIncomesGenerally($beginOfPeriod, $endOfPeriod);
-		$arg['pieChartIncomeData'] = $balance->getIncomesGenerally($beginOfPeriod, $endOfPeriod);
+		$arg['pieIn'] = $balance->getIncomePie($beginOfPeriod, $endOfPeriod);
 		
 		$arg['expensesGenerally'] = $balance->getExpensesGenerally($beginOfPeriod, $endOfPeriod);
-		$arg['pieChartExpenseData'] = $balance->getExpensesGenerally($beginOfPeriod, $endOfPeriod);
+		$arg['pieEx'] = $balance->getExpensePie($beginOfPeriod, $endOfPeriod);
 		
 		View::renderTemplate('Contents/custombalance.html', $arg);
 		

@@ -60,6 +60,39 @@ class ShowBalance extends \Core\Model
 		return $incomesGenerally;
 	}
 	
+	public function getIncomePie($beginOfPeriod, $endOfPeriod)
+	{
+		 $userID = $this->setUserID();
+
+	    if (empty($this->errors)) {
+
+	        $incomePieChart = "SELECT ic.name, SUM(i.amount) FROM incomes AS i, incomes_category_assigned_to_users AS ic 
+	        WHERE i.user_id='$userID' AND ic.user_id='$userID' AND ic.id=i.income_category_assigned_to_user_id AND i.date_of_income 
+	        BETWEEN '$beginOfPeriod' AND '$endOfPeriod' GROUP BY income_category_assigned_to_user_id";
+
+	        $db = static::getDB();
+	        $stmt = $db->prepare($incomePieChart);
+	        $stmt->execute();
+
+	        $incomePie = array();
+	        $incomeResult = $stmt->fetchAll(\PDO::FETCH_OBJ);
+
+	        $incomesArray = json_decode(json_encode($incomeResult), True);
+
+	        foreach ($incomesArray as $incomeChart) {
+	            array_push($incomePie, array("label"=>$incomeChart['name'], "y"=>$incomeChart['SUM(i.amount)']));
+	        }
+
+	        json_encode($incomePie, JSON_NUMERIC_CHECK);
+
+	        return $incomesArray;
+
+	    } else {
+
+	        return false;
+	    }
+	}
+	
 	public function getSumOfIncomes($beginOfPeriod, $endOfPeriod) 
 	{
 		$userID = $this->setUserID();
@@ -155,6 +188,42 @@ class ShowBalance extends \Core\Model
 		return $expensesGenerally;
 	}
 	
+	public function getExpensePie($beginOfPeriod, $endOfPeriod)
+	{
+		 $userID = $this->setUserID();
+
+	    if (empty($this->errors)) {
+
+	        $expensePieChart =  "SELECT ec.name AS name, SUM(e.amount)
+												FROM expenses AS e, expenses_category_assigned_to_users AS ec
+												WHERE e.user_id='$userID' AND ec.user_id='$userID'
+												AND ec.id=e.expense_category_assigned_to_user_id
+												AND e.date_of_expense BETWEEN '$beginOfPeriod' AND '$endOfPeriod'
+												GROUP BY expense_category_assigned_to_user_id";
+
+	        $db = static::getDB();
+	        $stmt = $db->prepare($expensePieChart);
+	        $stmt->execute();
+
+	        $expensePie = array();
+	        $expenseResult = $stmt->fetchAll(\PDO::FETCH_OBJ);
+
+	        $expensesArray = json_decode(json_encode($expenseResult), True);
+
+	        foreach ($expensesArray as $expenseChart) {
+	            array_push($expensePie, array("label"=>$expenseChart['name'], "y"=>$expenseChart['SUM(e.amount)']));
+	        }
+
+	        json_encode($expensePie, JSON_NUMERIC_CHECK);
+
+	        return $expensesArray;
+
+	    } else {
+
+	        return false;
+	    }
+	}
+
 	public function getExpancesForGoogleChart($beginOfPeriod, $endOfPeriod) 
 	{
 		$userID = $this->setUserID();
