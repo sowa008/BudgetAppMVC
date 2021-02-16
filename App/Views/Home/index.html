@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+
+<main>
+		
+		<section id="budgetapp">
+			
+			<div class="container p-5">
+				
+				<header>
+				<h1>
+					<a href="/" class="link"><i class="icon-credit-card"> BudgetApp&trade;</i> </a>
+				</h1>
+				</header>
+				   
+				<div class="row">
+					
+					<div class="col-sm-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3 p-4">
+						
+						<form id="form" action="/login/create" method="post">
+							
+							<input style="max-width: 100%;" type="email" name="email" placeholder="e-mail" onfocus="this.placeholder=' ' " onblur="this.placeholder='type your e-mail' " value="{{ email }}">
+						
+							<input style="max-width: 100%" type="password" name="password" placeholder="password" onfocus="this.placeholder=' ' " onblur="this.placeholder='type your password' ">
+							
+							<div id="checkbox">
+								<label>
+									<input type="checkbox" name="remember_me" {% if remember_me %} checked="checked" {% endif %} /> Remember me
+								</label>
+							</div>
+									
+							<input style="max-width: 100%;" type="submit" value="Log in" >
+							
+							<div class="create">Don't have your account yet? </div>
+							<a href="/register/register"><div class="register"> Register here</div></a>
+							
+							<div class="create">Forgot your password? </div>
+							<a href="/password/forgot"><div class="register"> Reset password </div></a>
+							
+						</form>
+											
+					</div>		
+				
+				</div>		
+			
+			</div>	
+			
+		</section>
+		
+	</main>
+
+{% endblock %}
+

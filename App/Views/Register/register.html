@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+
+<main>
+		<section id="budgetapp">
+			<div class="container p-5">
+				
+				<header>
+				<h1>
+					<a href="/" class="link"><i class="icon-credit-card"> BudgetApp&trade;</i> </a>
+				</h1>
+				</header>
+				   
+				<div class="row">
+					
+					<div class="col-sm-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3 p-4">
+						
+						<form method="post" action="/register/create">
+						
+							{% if user.errors is not empty %}
+								<div class="error" style="margin-left: 50px;">
+								<p> Errors: </p>
+								<ul>
+									{% for error in user.errors %}
+										<li>{{ error }}</li>
+									{% endfor %}
+								</ul>
+								</div>
+							{% endif %}
+						
+							<div id="form">
+								
+								<input type="text" name="username" required style="max-width: 100%;" title="Enter your name" placeholder="type your name" onfocus="this.placeholder=' ' " onblur="this.placeholder='type your name' " value="{{ user.username }}"/>
+													
+								<input type="email" style="max-width: 100%;" name="register_email" required title="Enter your e-mail" placeholder="type your e-mail" onfocus="this.placeholder=' ' " onblur="this.placeholder='type your e-mail' " value="{{ user.register_email }}" />
+				
+								<input type="password" style="max-width: 100%;" name="register_password1" required title="Enter password" placeholder="type your password" onfocus="this.placeholder=' ' " onblur="this.placeholder='type your password' " />
+												   
+								<input type="password" style="max-width: 100%;" name="register_password2" required title="Confirm the password" placeholder="repeat your password" onfocus="this.placeholder=' ' " onblur="this.placeholder='repeat your password' " />
+								
+								<div class="w-100"></div>
+								
+								<input type="submit" style="max-width: 100%;" value="Register" />
+								
+								<br/><br/>Go back to <a href="/login"><span style="color: #6a1b9a; font-weight: bold;"> Log in </a> page 
+							
+							</div>
+							
+						</form>
+					
+					</div>						
+				
+				</div>		
+			
+			</div>				
+		</section>
+	</main>
+	
+{% endblock %}
+

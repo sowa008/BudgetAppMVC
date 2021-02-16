@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}Choose dates{% endblock %}
+
+{% block body %}
+
+	<main>
+		<section id="budgetapp">
+			<div class="container-fluid p-5">
+				
+				<header>
+					<h1>
+						<i class="icon-credit-card"> BudgetApp&trade;</i> 
+					</h1>
+				</header>
+				   
+				<div class="row">
+
+					<div class="col-12 col-lg-4 p-2">
+												<nav>
+												
+							<div id="user">
+								{% if current_user %}
+									Welcome&nbsp; {{ current_user.username }}!
+								{% else %}
+									<a href="/login"> Log in </a>
+								{% endif %}
+							</div>
+							
+							<a href="/contents/main"><div><h2 class="icon-credit-card">Menu</h2></div></a>
+													
+							<a href="/contents/addincome" class="link"><div class="button"><span style="color: green;" class="icon-money"> Add income </span></div></a>
+								
+							<a href="/contents/addexpense" class="link"><div class="button"><span style="color: red;" class="icon-money"> Add expense </span></div></a>
+													
+							<a href="/contents/settings" class="link"><div class="button" style="background-color: #9c27b0; cursor: default; box-shadow: none;"><span style="color: #e1bee7;" class="icon-chart-pie"> Show balance </span></div></a>
+							
+							<a href="/contents/settings"class="link"><div class="button"><i class="icon-cog"></i>Settings</div></a>	
+							
+							<a href="/logout" class="link"><div class="button"><span style="color: brown; font-weight:700;" class="icon-logout"> Log out </span></div></a>
+						
+						</nav>
+						
+						<div class="button">
+						<form id="balanceform" method="post" action="/contents/choosebalance">				<div id="balancebox" style="text-align: center;">
+									<label for="showbalance" style="margin-right: 10px;">Show balance of   </label>
+										<select name="optionTime" id="showbalance" onchange="this.form.submit()">				
+											<option value="1">Current Month</option>
+											<option value="2">Last Month</option>
+											<option value="3">Current Year</option>			
+											<option value="4" selected>Custom</option>			
+										</select>
+									</div>
+						</form>	
+						</div>
+					</div>			
+						
+					<div class="col-12 col-lg-8 p-2">
+							 <div id="welcome">
+							 
+								 <form method="post" action="/balance/custom">
+									<h1>Choose your dates here</h1>
+									
+										<div class="box">
+											<p>Begin of period</p>
+											<input type="date" name="begin">
+										</div>	
+								
+										<div class="box">
+											<p>End of period</p>
+											<input type="date" name="end">
+										</div>	
+									
+									<input type="submit" style="max-width: 100%;" value="Submit" />
+									
+								</form>
+							
+							</div>
+					</div>									
+										
+						
+					
+				
+				</div>		
+			
+			</div>				
+		</section>
+	</main>
+	
+{% endblock %}

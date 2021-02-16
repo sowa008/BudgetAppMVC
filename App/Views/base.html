@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+	
+	<!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
+		
+		<link rel="stylesheet" href="/css/bootstrap.min.css" />
+	    <link rel="stylesheet" href="/css/style.css" type="text/css" />
+	    <link rel="stylesheet" href="/css/fontello.css">
+	    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+			
+</head>
+<body>
+
+	{% for message in flash_messages %}
+		<div class="messages messages-{{ message.type }}">
+			{{ message.body }}
+		</div>
+	{% endfor %}
+    
+	{% block body %}
+    {% endblock %}
+	
+		<footer style="position: fixed;"><i class="icon-credit-card"></i>BudgetApp&trade; was created in 2020	
+		</footer>
+		
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+	
+		<script src="js/bootstrap.min.js">	</script>
+	
+</body>
+
+{% block javascripts %}
+	
+{% endblock %}
+
+</html>

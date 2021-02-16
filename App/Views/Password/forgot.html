@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Forgot password{% endblock %}
+
+{% block body %}
+
+	<main>
+		<section id="budgetapp">
+			<div class="container p-5">
+				
+				<header>
+				<h1>
+					<a href="/" class="link"><i class="icon-credit-card"> BudgetApp&trade;</i> </a>
+				</h1>
+				</header>
+				   
+				<div class="row">
+					
+					<div class="col-sm-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3 p-4">
+					
+					<div id="form" >
+						
+							<form method="post" action="/password/request-reset">
+							
+								<div>
+									<label for="inputEmail">Email address</label>
+									<input type="email" id="inputEmail" name="email_reset" placeholder="Email address" autofocus required />
+								</div>
+								
+								<input type="submit" style="max-width: 100%;" value="Send password reset" />
+							
+							</form>
+
+							<br/><br/>Go back to <a href="/login"><span style="color: #6a1b9a; font-weight: bold;"> Log in </a> page 
+					
+					</ div>
+											
+					</div>		
+				
+				</div>		
+			
+			</div>				
+		</section>
+	</main>
+
+{% endblock %}

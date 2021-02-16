@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}Add income{% endblock %}
+
+{% block body %}
+
+	<main>
+		<section id="budgetapp">	
+			<div class="container-fluid p-5">
+				
+				<header>
+					<h1>
+						<i class="icon-credit-card"> BudgetApp&trade;</i> 
+					</h1>
+				</header>
+								   
+				<div class="row">
+
+					<div class="col-12 col-lg-4 p-2">
+						<nav>
+												
+							<div id="user">
+								{% if current_user %}
+									Welcome&nbsp; {{ current_user.username }}!
+								{% else %}
+									<a href="/login"> Log in </a>
+								{% endif %}
+							</div>
+							
+							<a href="/contents/main"><div><h2 class="icon-credit-card">Menu</h2></div></a>
+													
+							<a href="#" class="link"><div class="button" style="background-color: #9c27b0; cursor: default; box-shadow: none;"><span style="color: #e1bee7;" class="icon-money"> Add income </span></div></a>
+							
+							<a href="/contents/addexpense" class="link"><div class="button"><span style="color: red;" class="icon-money"> Add expense </span></div></a>
+							
+							<a href="/contents/showbalance" class="link"><div class="button"><i class="icon-chart-pie"></i> Show balance</div></a>
+							
+							<a href="/contents/settings"class="link"><div class="button"><i class="icon-cog"></i>Settings</div></a>	
+							
+							<a href="/logout" class="link"><div class="button"><span style="color: brown; font-weight:700;" class="icon-logout"> Log out </span></div></a>
+						
+						</nav>
+					</div>		
+									
+					<div class="col-12 col-lg-8 p-2">
+						<form id="formbox" style="width:100%;" method="post" action="/addincome/addincome">
+							
+							<div id="welcome-add">
+								<div class="container-fluid p-0">
+									<div class="row">		
+										
+										<div class="col-12 col-lg-6 p-0 m-0">
+														
+														<div class="box">
+															<p>Add income</p>
+															<input name="income" type="number" step="0.01" min='0' required placeholder="amount" onfocus="this.placeholder=' ' " onblur="this.placeholder='amount' ">				
+														</div>
+
+														<div class="box">
+															<p>Date</p>
+															<input type="date" name="date">
+														</div>
+											
+														<div class="box">
+															<p><label for="category">Source</label></p>
+															<select id="category" name="income_option">
+															{% for option in user_income_categories %}
+																  <option> {{ option.name }} </option>
+															{% endfor %}
+															</select>	
+														</div>
+										</div>
+												
+										<div class="col-12 col-lg-6 p-0">
+											<div class="box"  style="width: 100%;">
+												<div style="text-align: center;"><label for="comment">Comment (optional)</label></div>
+												<textarea form="formbox" id="comment" name="comment" rows="8" cols="15"></textarea>
+											</div>
+										</div>
+									
+									</div>	
+									
+										<div  id="add"> 		
+											<input type="submit" value="Add income">
+										</div>
+									
+								</div>
+							</div>
+												
+						</form>	
+										
+									
+					</div>
+						
+				</div>
+			
+			</div>				
+		</section>
+	</main>
+	
+{% endblock %}

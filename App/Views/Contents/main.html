@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Main{% endblock %}
+
+{% block body %}
+
+	<main>
+		<section id="budgetapp">
+			<div class="container-fluid p-5">
+				
+				<header>
+					<h1>
+						<i class="icon-credit-card"> BudgetApp&trade;</i> 
+					</h1>
+				</header>
+				   
+				<div class="row">
+
+					<div class="col-12 col-lg-4 p-2">
+						<nav>
+					
+							<div id="user">
+								{% if current_user %}
+									Welcome&nbsp; {{ current_user.username }}!
+								{% else %}
+									<a href="/login"> Log in </a>
+								{% endif %}
+							</div>
+						
+							<a href="#"><div><h2 class="icon-credit-card">Menu</h2></div></a>
+						
+							<a href="/contents/addincome" class="link"><div class="button"><span style="color: green;" class="icon-money"> Add income </span></div></a>
+							
+							<a href="/contents/addexpense" class="link"><div class="button"><span style="color: red;" class="icon-money"> Add expense </span></div></a>
+							
+							<a href="/contents/showbalance" class="link"><div class="button"><i class="icon-chart-pie"></i> Show balance</div></a>
+							
+							<a href="/contents/settings" class="link"><div class="button"><i class="icon-cog"></i>Settings</div></a>	
+							
+							<a href="/logout" class="link"><div class="button"><span style="color: brown; font-weight:700;" class="icon-logout"> Log out </span></div></a>
+					
+						</nav>
+					</div>		
+					
+					<div class="col-12 col-lg-8 p-2">
+							 <div id="welcome">
+								<h1 style="font-size:26px;">Welcome to BudgetApp&trade; ! </h1>
+								<h1 style="font-size:26px;">your personal budget manager</h1>
+								<h3>What would you like to do?</h3>
+								<h3>Choose an option from the menu</h3>
+							</div>
+					</div>
+				
+				</div>		
+			
+			</div>				
+		</section>
+	</main>
+	
+{% endblock %}

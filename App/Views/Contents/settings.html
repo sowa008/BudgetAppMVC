@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}Settings{% endblock %}
+
+{% block body %}
+
+	<main>
+		<section id="budgetapp">
+			<div class="container-fluid p-5">
+				
+				<header>
+					<h1>
+						<i class="icon-credit-card"> BudgetApp&trade;</i> 
+					</h1>
+				</header>
+				   
+				<div class="row">
+
+					<div class="col-12 col-lg-4 p-2">
+						<nav>
+					
+							<div id="user">
+								{% if current_user %}
+									Welcome&nbsp; {{ current_user.username }}!
+								{% else %}
+									<a href="/login"> Log in </a>
+								{% endif %}
+							</div>
+						
+						<a href="/contents/main"><div><h2 class="icon-credit-card">Menu</h2></div></a>
+						
+						<a href="/contents/addincome" class="link"><div class="button"><span style="color: green;" class="icon-money"> Add income </span></div></a>
+						
+						<a href="/contents/addexpense" class="link"><div class="button"><span style="color: red;" class="icon-money"> Add expense </span></div></a>
+						
+						<a href="/contents/showbalance" class="link"><div class="button"><i class="icon-chart-pie"></i> Show balance</div></a>
+						
+						<a href="#" class="link"><div class="button" style="background-color: #9c27b0; cursor: default; box-shadow: none;"><span style="color: #e1bee7;" class="icon-cog">Settings</span></div></a>	
+						
+						<a href="/logout" class="link"><div class="button"><span style="color: brown; font-weight:700;" class="icon-logout"> Log out </span></div></a>
+					
+						</nav>
+					</div>		
+					
+					<div class="col-12 col-lg-8 p-2">
+							
+							<div class="row" id="welcome">
+								
+								<div class="col-sm-12 col-lg-6 p-4">
+									
+									<h1>Profile Settings</h1>
+									<dl>
+										<dt>Name</dt>
+										<dd>{{user.username}}</dd>
+										<dt>Email</dt>
+										<dd>{{user.email}}</dd>
+									</dl>
+			
+								</div>
+												
+								<div class="col-12 col-lg-6 p-0 m-0">
+													
+													<form method="post" action="/contents/update">
+													
+													<h1>Edit your data</h1>
+
+															{% if user.errors is not empty %}
+																<div class="error" style="margin-left: 50px;">
+																<ul>
+																	{% for error in user.errors %}
+																		<li style="list-style-type: none; text-align: left; font-size: 15px;">{{ error }}</li>
+																	{% endfor %}
+																</ul>
+																</div>
+															{% endif %}
+														
+														<dd><input type="text" name="username" style="max-width: 100%;" title="Enter your name" placeholder="type your name" onfocus="this.placeholder=' ' " onblur="this.placeholder='type your name' " value="{{ user.username }}"/></dd>
+										
+														<dd><input type="password" style="max-width: 100%;" name="register_password1" title="Password change" placeholder="new password" onfocus="this.placeholder=' ' " onblur="this.placeholder='type your password' " /></dd>
+																		   
+														<dd><input type="password" style="max-width: 100%;" name="register_password2" title="Confirm the password change" placeholder="repeat new password" onfocus="this.placeholder=' ' " onblur="this.placeholder='repeat your password' " /></dd>
+														
+														
+														<input type="submit" style="max-width: 100%;" value="Save" />
+														
+														<br/><br/> <a href="/contents/settings"><span style="color: brown; font-weight: bold;"> Cancel </a> 
+													
+														</form>
+												
+								</div>
+							
+							</div>
+							
+					</div>
+				
+				</div>		
+			
+			</div>				
+		</section>
+	</main>
+	
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Add income{% endblock %}
+
+{% block body %}
+
+	<main>
+		<section id="budgetapp">
+			<div class="container-fluid p-5">
+				
+				<header>
+					<h1>
+						<i class="icon-credit-card"> BudgetApp&trade;</i> 
+					</h1>
+				</header>
+								   
+				<div class="row">
+
+					<div class="col-12 col-lg-4 p-2">
+						<nav>
+												
+							<div id="user">
+								{% if current_user %}
+									Welcome&nbsp; {{ current_user.username }}!
+								{% else %}
+									<a href="/login"> Log in </a>
+								{% endif %}
+							</div>
+							
+							<a href="/contents/main"><div><h2 class="icon-credit-card">Menu</h2></div></a>
+													
+							<a href="#" class="link"><div class="button" style="background-color: #9c27b0; cursor: default; box-shadow: none;"><span style="color: #e1bee7;" class="icon-money"> Add income </span></div></a>
+							
+							<a href="/contents/addexpense" class="link"><div class="button"><span style="color: red;" class="icon-money"> Add expense </span></div></a>
+							
+							<a href="/contents/showbalance" class="link"><div class="button"><i class="icon-chart-pie"></i> Show balance</div></a>
+							
+							<a href="/contents/settings"class="link"><div class="button"><i class="icon-cog"></i>Settings</div></a>	
+							
+							<a href="/logout" class="link"><div class="button"><span style="color: brown; font-weight:700;" class="icon-logout"> Log out </span></div></a>
+						
+						</nav>
+					</div>		
+									
+					<div class="col-12 col-lg-8 p-2">
+							 <div id="welcome">
+								<h1>Your income is added</h1>
+
+								<br/><br/> <a href="/contents/addincome"><span style="color: #6a1b9a; font-weight: bold;"> Add another </a>
+							</div>
+					</div>									
+										
+						
+					
+				
+				</div>		
+			
+			</div>				
+		</section>
+	</main>
+	
+{% endblock %}

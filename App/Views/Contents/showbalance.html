@@ -1,0 +1,218 @@
+{% extends 'base.html' %}
+
+{% block title %}Show balance{% endblock %}
+
+{% block body %}
+
+	<main>
+		<section id="budgetapp">
+			<div class="container-fluid p-5">
+				
+				<header>
+					<h1>
+						<i class="icon-credit-card"> BudgetApp&trade;</i> 
+					</h1>
+				</header>
+								   
+				<div class="row">
+
+					<div class="col-12 col-lg-4 p-2">
+						<nav>
+												
+							<div id="user">
+								{% if current_user %}
+									Welcome&nbsp; {{ current_user.username }}!
+								{% else %}
+									<a href="/login"> Log in </a>
+								{% endif %}
+							</div>
+							
+							<a href="/contents/main"><div><h2 class="icon-credit-card">Menu</h2></div></a>
+													
+							<a href="/contents/addincome" class="link"><div class="button"><span style="color: green;" class="icon-money"> Add income </span></div></a>
+								
+							<a href="/contents/addexpense" class="link"><div class="button"><span style="color: red;" class="icon-money"> Add expense </span></div></a>
+													
+							<a href="#" class="link"><div class="button" style="background-color: #9c27b0; cursor: default; box-shadow: none;"><span style="color: #e1bee7;" class="icon-chart-pie"> Show balance </span></div></a>
+							
+							<a href="/contents/settings"class="link"><div class="button"><i class="icon-cog"></i>Settings</div></a>	
+							
+							<a href="/logout" class="link"><div class="button"><span style="color: brown; font-weight:700;" class="icon-logout"> Log out </span></div></a>
+						
+						</nav>
+						
+						<div class="button">
+						<form id="balanceform" method="post" action="/contents/choosebalance">				<div id="balancebox" style="text-align: center;">
+									<label for="showbalance" style="margin-right: 10px;">Show balance of   </label>
+										<select name="optionTime" id="showbalance" onchange="this.form.submit()">				
+											<option value="1">Current Month</option>
+											<option value="2">Last Month</option>
+											<option value="3">Current Year</option>			
+											<option value="4">Custom</option>			
+										</select>
+									</div>
+						</form>	
+						</div>
+						
+					</div>	
+
+					<div class="col-12 col-lg-8 p-2">
+						<div id="welcome-add">
+							
+							<div class="ballancebox">	
+								<a style="font-weight: bold;">BALANCE SHEET </a>
+								<p><a>in {{month_name}}</a></p>
+							</div>
+							
+							{% if incomesGenerally is empty and expensesGenerally is empty %}
+								<div class="table" style="color: black; text-align: center; font-size: 18px;">You have no data to display in this period</div>
+							{% else %}	
+															
+								<div class="table" style="font-size: 14px;">	
+										<table style="margin-left:auto; margin-right:auto; text-align: right;">
+											<tr><th><a style="color: green;">Total INCOMES: </a></th><th>{{ sumOfIncomes }} PLN </th></tr>
+											<tr><th><a style="color: red;">Total EXPENSES: </a></th><th>{{ sumOfExpenses }} PLN </th></tr>
+											<tr><th><a>BALANCE : </a></th><th>{{sumOfIncomes-sumOfExpenses}} PLN</th></tr>
+										</table>
+											<div class="ballancebox">
+											{% if (sumOfIncomes-sumOfExpenses)>0 %}
+											Congratulations! <br/> You manage your budget very well
+											{% else %}	
+											Be careful with planning your budget! <br/> You spend more than you earn
+											{% endif %}
+											</div>
+								</div>
+							
+						<div class="row">
+						
+									  <div class="col-12 col-lg-6 p-2">
+									  
+									  <div id="piechart_incomes" style="width: 100%; height: 350px; margin-bottom: 10px;"></div>
+										
+											<div class="table">							
+													<table style="margin-left:auto; margin-right:auto;">
+														<thead>
+															<tr><th colspan="4" style="color: green;">INCOMES<br/> SUM:
+																{% if sumOfIncomes %}
+																	{{ sumOfIncomes }} PLN
+																{% endif %}
+															</th></tr>
+															<tr>
+																<th>Date</th>
+																<th>Amount</th>
+																<th>Category</th>
+																<th>Comment</th>
+															</tr>
+														</thead>
+														<tbody>
+																{% for income in incomesGenerally %}
+																<tr>
+																	<td>{{ income.date_of_income }} </td>
+																	<td>{{ income[3] }} PLN</td>
+																	<td>{{ income.name }} </td>
+																	<td>{{ income.income_comment }} </td>
+																</tr>
+																{% endfor %}	
+														</tbody>
+													</table>
+											</div>
+										
+										</div>
+							
+									<div class="col-12 col-lg-6 p-2">
+									  
+									  <div id="piechart_expenses" style="width: 100%; height: 350px; margin-bottom: 10px;"></div>
+											
+										<div class="table">							
+												<table style="margin-left:auto; margin-right:auto;">
+													<thead>
+														<tr><th colspan="5" style="color: red;">EXPENSES<br/> SUM:
+															{% if sumOfExpenses %}
+																{{ sumOfExpenses }} PLN
+															{% endif %}
+														</th></tr>
+														<tr>
+															<th>Date</th>
+															<th>Amount</th>
+															<th>Category</th>
+															<th>Payment</th>
+															<th>Comment</th>
+														</tr>
+													</thead>
+													<tbody>
+															{% for expense in expensesGenerally %}
+															<tr>
+																<td>{{ expense.date_of_expense }} </td>
+																<td>{{ expense.amount }} PLN</td>
+																<td>{{ expense[2] }}</td>
+																<td>{{ expense[3] }}</td>
+																<td>{{ expense.expense_comment }}</td>
+															</tr>
+															{% endfor %}		
+													</tbody>
+												</table>
+										</div>
+										
+									</div>
+							
+						</div>
+								
+								{% endif %}
+							
+						</div>
+					</div>
+
+				</div>		
+				
+			</div>				
+		</section>
+	</main>
+	
+{% endblock %}
+
+
+{% block javascripts %}
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawExpensesChart);
+      google.charts.setOnLoadCallback(drawIncomesChart);
+
+      function drawExpensesChart() {
+
+        var data = google.visualization.arrayToDataTable([
+        	['Category', 'Amount'],
+          {% for pieCh in pieExpenseChart %}
+          		['{{ pieChartExpenseData.name }}', {{ pieChartExpenseData['sum'] }}],
+          	{% endfor %}
+        ]);
+
+        var options = {
+          title: 'Your expenses:'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_expenses'));
+
+        chart.draw(data, options);
+      }
+	  
+	  function drawIncomesChart() {
+
+        var data = google.visualization.arrayToDataTable([
+        	['Category', 'Amount'],
+          {% for pieCh in pieIncomeChart %}
+          		['{{ pieChartIncomeData.name }}', {{ pieChartIncomeData['sum'] }}],
+          	{% endfor %}
+        ]);
+
+        var options = {
+          title: 'Your incomes:'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_incomes'));
+
+        chart.draw(data, options);
+      }
+    </script>
+{% endblock %}
